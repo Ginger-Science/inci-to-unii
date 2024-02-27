@@ -4,6 +4,7 @@ import { UNIIRow } from "@/types/UNIIRow";
 
 export const createUNIITable = async (ingredients: string[]) => {
   const rows: UNIIRow[] = [];
+  const notFound: string[] = [];
 
   const promises = ingredients.map(async (ingredient) => {
     const uniiData = await getUNII(ingredient);
@@ -19,11 +20,12 @@ export const createUNIITable = async (ingredients: string[]) => {
         fdaEntryUrl,
       });
     } else {
-      console.error(`${ingredient} was not found.`);
+      rows.push({ displayName: "", unii: "", fdaEntryUrl: "" });
+      notFound.push(ingredient);
     }
   });
 
   await Promise.all(promises);
 
-  return rows;
+  return { rows, notFound };
 };

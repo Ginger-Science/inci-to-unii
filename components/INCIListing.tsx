@@ -10,7 +10,8 @@ import { json } from "stream/consumers";
 
 const INCIListing = () => {
   const [value, setValue] = useState("");
- const [tableRows, setTableRows] = useState<any>();
+ const [tableRows, setTableRows] = useState<UNIIRow[] | null>();
+ const [notFound, setNotFound] = useState<string[]>([])
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(event.target.value);
@@ -18,15 +19,16 @@ const INCIListing = () => {
 
   const handleSubmit = async () => {
     const ingredients = splitIngredients(value);
-    const rows = await createUNIITable(ingredients);
-    setTableRows(rows)
+    const results = await createUNIITable(ingredients);
+    setTableRows(results.rows)
+    setNotFound(results.notFound)
   };
 
   return (
     <>
       <div className="flex flex-col w-full items-center gap-y-8">
         <textarea
-          className="bg-neutral-100 w-1/2 h-40 rounded-2xl"
+          className="bg-neutral-100 w-1/2 h-40 rounded-2xl p-4"
           value={value}
           onChange={handleChange}
         />
@@ -47,7 +49,7 @@ const INCIListing = () => {
       
       </div>
 
-       <Output rows={tableRows} />
+       <Output rows={tableRows} notFound={notFound}/>
 
 
       

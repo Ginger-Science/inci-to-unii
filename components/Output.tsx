@@ -2,11 +2,16 @@ import { UNIIRow } from "@/types/UNIIRow";
 import { useState } from "react";
 
 type OutputProps = {
-  rows: any[];
+  rows: UNIIRow[] | null | undefined;
+  notFound: string[];
 };
 
-const Output = ({ rows }: OutputProps) => {
+const Output = ({ rows, notFound }: OutputProps) => {
   const [isCopied, setIsCopied] = useState(false);
+
+  if (!rows) {
+    return null;
+  }
 
   const returnCSV = () => {
     const flattenedArray = rows.map((row) => [
@@ -42,18 +47,23 @@ const Output = ({ rows }: OutputProps) => {
     URL.revokeObjectURL(url);
   };
 
-  if (!rows) {
-    return null;
-  }
-
   return (
     <>
       <div className="flex flex-col w-full items-center gap-y-8 mt-8">
         <textarea
-          className="bg-neutral-100 w-1/2 h-40"
+          className="bg-neutral-100 w-1/2 h-40 p-4"
           value={JSON.stringify(rows)}
           readOnly
         />
+        
+        <div className="flex flex-col gap-y-1 items-center">
+        {notFound &&
+          notFound.map((ingredient) => {
+            return <h1 className="text-lg text-rose-800">{ingredient} not found</h1>;
+          })}
+
+        </div>
+       
         <div className="flex gap-x-4">
           <button
             className="bg-emerald-950  text-white px-8 py-4 rounded-2xl"

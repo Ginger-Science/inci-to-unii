@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# INCI to UNII
 
-## Getting Started
+This tool converts International Nomenclature of Cosmetic Ingredients (INCI) listings for cosmetic products to the Unique Ingredient Identifier (UNII) preferred name and UNII code. The output can be downloaded to a CSV file that can be uploaded to the ingredients section when registering a cosmetic product via FDA Cosmetics Direct. 
 
-First, run the development server:
+![Main Image](/images/main.png)
+
+## Disclaimer
+
+**USE AT YOUR OWN RISK.**
+
+This tool is provided as-is, and the developer(s) are not liable for any errors, inaccuracies, or issues that may arise from its use. It is essential to exercise your own due diligence and verify the results obtained through this tool. The developer(s) make no guarantees about the accuracy, completeness, or reliability of the converted data.
+
+## Functionality
+
+- Paste and submit an INCI listing for a cosmetic product (separated by commas) in the text field 
+- Download to a .csv that can be imported to the ingredients section of an FDA registration for cosmetic ingredients in Cosmetic Direct portal. 
+
+![An Example with Errors](/images/has-errors.png)
+- If the app cannot find a UNII entry, then the INCI name is displayed in red
+    - blank line is added to the csv and array to retain the cosmetic order of predominance.
+
+![An example of the CSV](/images/csv-example.png)
+- An example of the generated CSV that features:
+    - Preferred ingredient name
+    - UNII code
+    - A link to the Precision FDA entry
+
+## Running Locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Make a .env file for the FDA API endpoint = `ENDPOINT_URL`
