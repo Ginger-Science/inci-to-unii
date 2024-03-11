@@ -1,5 +1,6 @@
 import { UNIIRow } from "@/types/UNIIRow";
 import { useState } from "react";
+import NotFoundButton from "./NotFoundButton";
 
 type OutputProps = {
   rows: UNIIRow[] | null | undefined;
@@ -55,15 +56,12 @@ const Output = ({ rows, notFound }: OutputProps) => {
           value={JSON.stringify(rows)}
           readOnly
         />
-        
-        <div className="flex flex-col gap-y-1 items-center">
-        {notFound &&
-          notFound.map((ingredient) => {
-            return <h1 className="text-lg text-rose-800">{ingredient} not found</h1>;
-          })}
 
+        <div className="flex flex-col gap-y-1 items-center">
+          {notFound &&
+            notFound.map((ingredient) => <NotFoundButton ingredient={ingredient} />)}
         </div>
-       
+
         <div className="flex gap-x-4">
           <button
             className="bg-emerald-950  text-white px-8 py-4 rounded-2xl"
