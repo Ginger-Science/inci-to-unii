@@ -14,6 +14,8 @@ This tool is provided as-is, and the developer(s) are not liable for any errors,
 
 - Paste and submit an INCI listing for a cosmetic product (separated by commas) in the text field 
 - Download to a .csv that can be imported to the ingredients section of an FDA registration for cosmetic ingredients in Cosmetic Direct portal. 
+- Map a INCI name to a UNCII code manually
+    - Subsequent conversions will use the custom mapping to run the conversion rather than return a null from the FDA endpoint.
 
 ![An Example with Errors](/images/has-errors.png)
 - If the app cannot find a UNII entry, then the INCI name is displayed in red
@@ -25,11 +27,20 @@ This tool is provided as-is, and the developer(s) are not liable for any errors,
     - UNII code
     - A link to the Precision FDA entry
 
-## Running Locally
+## Installation
+
+### Required Environmental Variables
+
+- `ENDPOINT_URL` = FDA API endpoint
+- `DATABASE_URL` = The db for prisma. For sqlite use `file:./dev.db`
+
+### Docker
+
+There is a basic Dockerfile to push the image to a private registry. 
+
+### Running Locally
 
 ```bash
 npm install
 npm run dev
 ```
-
-- Make a .env file for the FDA API endpoint = `ENDPOINT_URL`

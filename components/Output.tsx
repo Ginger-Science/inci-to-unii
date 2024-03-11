@@ -59,7 +59,7 @@ const Output = ({ rows, notFound }: OutputProps) => {
 
         <div className="flex flex-col gap-y-1 items-center">
           {notFound &&
-            notFound.map((ingredient) => <NotFoundButton ingredient={ingredient} />)}
+            notFound.map((ingredient) => <NotFoundButton key={ingredient} ingredient={ingredient} />)}
         </div>
 
         <div className="flex gap-x-4">
