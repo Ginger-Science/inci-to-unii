@@ -14,7 +14,7 @@ const CustomMapping = () => {
         Custom Mapping
       </button>
 
-      <MappingDialog dialog={dialog} setDialog={setDialog} />
+      <MappingDialog dialog={dialog} setDialog={setDialog}  inciiName="" />
 
     </>
   );

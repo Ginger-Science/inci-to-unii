@@ -23,6 +23,7 @@ const INCIListing = () => {
     const results = await createUNIITable(ingredients);
     setTableRows(results.rows)
     setNotFound(results.notFound)
+    setValue('');
   };
 
   return (

@@ -11,11 +11,24 @@ type MappingDialogProps = {
 const MappingDialog = ({ dialog, setDialog, inciiName}: MappingDialogProps) => {
   const [uniiCode, setUniiCode] = useState("");
   const [preferredName, setPrefferredName] = useState("");
+  const [inci, setInci] = useState("");
 
   const handleSubmit = () => {
     setDialog(false);
-    createMapping(inciiName, preferredName, uniiCode);
+    setUniiCode('');
+    setPrefferredName('')
+    setInci('')
+    // if an inci name was manually typed in use it, otherwise use the not found ingredient name
+    const usedInciName = inci ? inci : inciiName;
+    createMapping(usedInciName, preferredName, uniiCode);
   };
+
+  const handleClose = () => {
+    setDialog(false);
+    setUniiCode('');
+    setPrefferredName('')
+    setInci('')
+  }
 
   return (
     <Dialog.Root open={dialog} onOpenChange={setDialog}>
@@ -45,12 +58,21 @@ const MappingDialog = ({ dialog, setDialog, inciiName}: MappingDialogProps) => {
                 type="text"
               />
           </div>
+          {inciiName.length === 0 && 
+          <div>
+              <h1 className="font-bold text-emerald-950 text-lg">
+                INCI Name
+              </h1>
+              <input
+                value={inci}
+                onChange={(event) => setInci(event.target.value)}
+                className="border-emerald-950 border-2 rounded-lg px-4 py-4 w-full text-lg"
+                type="text"
+              />
+          </div>}
               <div className="flex flex-row justify-end gap-x-2">
                 <button
-                  onClick={() => {
-                    setDialog(false);
-                    setUniiCode("");
-                  }}
+                  onClick={handleClose}
                   className="bg-neutral-200 text-black rounded-lg px-4 py-2 "
                 >
                   Cancel
