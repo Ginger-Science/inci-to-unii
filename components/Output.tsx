@@ -1,6 +1,7 @@
 import { UNIIRow } from "@/types/UNIIRow";
 import { useState } from "react";
 import NotFoundButton from "./NotFoundButton";
+import { uploadtoMinio } from "@/utilities/uploadToMinio";
 
 type OutputProps = {
   rows: UNIIRow[] | null | undefined;
@@ -16,8 +17,8 @@ const Output = ({ rows, notFound }: OutputProps) => {
 
   const returnCSV = () => {
     const flattenedArray = rows.map((row) => [
-      row.displayName,
       row.unii,
+      row.displayName,
       row.fdaEntryUrl,
     ]);
     const csvContent = flattenedArray.map((row) => row.join(",")).join("\n");
@@ -48,6 +49,10 @@ const Output = ({ rows, notFound }: OutputProps) => {
     URL.revokeObjectURL(url);
   };
 
+  const handleUploadToMinIO = async () => {
+      await uploadtoMinio(rows);
+  };
+
   return (
     <>
       <div className="flex flex-col w-full items-center gap-y-8 mt-8">
@@ -59,7 +64,9 @@ const Output = ({ rows, notFound }: OutputProps) => {
 
         <div className="flex flex-col gap-y-1 items-center">
           {notFound &&
-            notFound.map((ingredient) => <NotFoundButton key={ingredient} ingredient={ingredient} />)}
+            notFound.map((ingredient) => (
+              <NotFoundButton key={ingredient} ingredient={ingredient} />
+            ))}
         </div>
 
         <div className="flex gap-x-4">
@@ -74,6 +81,12 @@ const Output = ({ rows, notFound }: OutputProps) => {
             onClick={handleDownloadClick}
           >
             Download CSV
+          </button>
+          <button
+            className="bg-emerald-950 text-white px-8 py-4 rounded-2xl"
+            onClick={handleUploadToMinIO}
+          >
+            Upload to S3
           </button>
         </div>
       </div>
