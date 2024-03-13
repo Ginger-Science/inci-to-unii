@@ -11,8 +11,8 @@ import CustomMapping from "./CustomMapping";
 
 const INCIListing = () => {
   const [value, setValue] = useState("");
- const [tableRows, setTableRows] = useState<UNIIRow[] | null>();
- const [notFound, setNotFound] = useState<string[]>([])
+  const [tableRows, setTableRows] = useState<UNIIRow[] | null>();
+  const [notFound, setNotFound] = useState<string[]>([]);
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(event.target.value);
@@ -21,9 +21,9 @@ const INCIListing = () => {
   const handleSubmit = async () => {
     const ingredients = splitIngredients(value);
     const results = await createUNIITable(ingredients);
-    setTableRows(results.rows)
-    setNotFound(results.notFound)
-    setValue('');
+    setTableRows(results.rows);
+    setNotFound(results.notFound);
+    setValue("");
   };
 
   return (
@@ -35,27 +35,26 @@ const INCIListing = () => {
           onChange={handleChange}
         />
         <span className="flex flex-row gap-x-4">
-            <button
-          className="bg-emerald-950 text-white px-8 py-4 rounded-2xl"
-          onClick={handleSubmit}
-        >
-          Submit
-        </button>
-        <button
-          className="bg-emerald-950 text-white px-8 py-4 rounded-2xl"
-          onClick={() => setTableRows(null)}
-        >
-          Clear
-        </button>
-        <CustomMapping />
+          <button
+            className="bg-emerald-950 text-white px-8 py-4 rounded-2xl"
+            onClick={handleSubmit}
+          >
+            Submit
+          </button>
+          <button
+            className="bg-emerald-950 text-white px-8 py-4 rounded-2xl"
+            onClick={() => {
+              setTableRows(null);
+              setValue('');
+            }}
+          >
+            Clear
+          </button>
+          <CustomMapping />
         </span>
-      
       </div>
 
-       <Output rows={tableRows} notFound={notFound}/>
-
-
-      
+      <Output rows={tableRows} notFound={notFound} />
     </>
   );
 };
