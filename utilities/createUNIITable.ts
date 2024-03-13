@@ -14,8 +14,8 @@ export const createUNIITable = async (ingredients: string[]) => {
 
     if (mapping) {
       rows.push({
-        displayName: mapping.inciName,
         unii: mapping.uniiCode,
+        displayName: mapping.inciName,
         fdaEntryUrl: "",
       });
       return;
@@ -30,8 +30,8 @@ export const createUNIITable = async (ingredients: string[]) => {
       const fdaEntryUrl = `https://precision.fda.gov/uniisearch/srs/unii/${unii.UNII}`;
 
       rows.push({
-        displayName: unii.DISPLAY_NAME,
         unii: unii.UNII,
+        displayName: unii.DISPLAY_NAME,
         fdaEntryUrl,
       });
     } else {
@@ -39,8 +39,8 @@ export const createUNIITable = async (ingredients: string[]) => {
 
       if (mapping) {
         rows.push({
-          displayName: mapping.inciName,
           unii: mapping.uniiCode,
+          displayName: mapping.inciName,
           fdaEntryUrl: "",
         });
         return;
