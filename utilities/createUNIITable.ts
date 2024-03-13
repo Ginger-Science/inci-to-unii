@@ -15,7 +15,7 @@ export const createUNIITable = async (ingredients: string[]) => {
     if (mapping) {
       rows.push({
         unii: mapping.uniiCode,
-        displayName: mapping.inciName,
+        displayName: mapping.preferredName,
         fdaEntryUrl: "",
       });
       return;
@@ -40,7 +40,7 @@ export const createUNIITable = async (ingredients: string[]) => {
       if (mapping) {
         rows.push({
           unii: mapping.uniiCode,
-          displayName: mapping.inciName,
+          displayName: mapping.preferredName,
           fdaEntryUrl: "",
         });
         return;
