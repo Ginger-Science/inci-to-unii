@@ -7,6 +7,7 @@ import { ChangeEvent, useState } from "react";
 import Output from "./Output";
 import { UNIIRow } from "@/types/UNIIRow";
 import { json } from "stream/consumers";
+import CustomMapping from "./CustomMapping";
 
 const INCIListing = () => {
   const [value, setValue] = useState("");
@@ -45,6 +46,7 @@ const INCIListing = () => {
         >
           Clear
         </button>
+        <CustomMapping />
         </span>
       
       </div>

@@ -3,14 +3,25 @@ import { getUNII } from "./getUNII";
 import { UNIIRow } from "@/types/UNIIRow";
 import { getMapping } from "./getMapping";
 
-
-
 export const createUNIITable = async (ingredients: string[]) => {
-
   const rows: UNIIRow[] = [];
   const notFound: string[] = [];
 
   const promises = ingredients.map(async (ingredient) => {
+
+    // check for custom mapping
+    const mapping = await getMapping(ingredient);
+
+    if (mapping) {
+      rows.push({
+        displayName: mapping.inciName,
+        unii: mapping.uniiCode,
+        fdaEntryUrl: "",
+      });
+      return;
+    }
+
+    // no custom mapping -- use FDA API
     const uniiData = await getUNII(ingredient);
 
     if (uniiData.total > 0) {
@@ -24,8 +35,6 @@ export const createUNIITable = async (ingredients: string[]) => {
         fdaEntryUrl,
       });
     } else {
-
-    
       const mapping = await getMapping(ingredient);
 
       if (mapping) {
@@ -34,7 +43,7 @@ export const createUNIITable = async (ingredients: string[]) => {
           unii: mapping.uniiCode,
           fdaEntryUrl: "",
         });
-        return
+        return;
       }
 
       rows.push({ displayName: "", unii: "", fdaEntryUrl: "" });
