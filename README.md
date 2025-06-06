@@ -1,3 +1,7 @@
+# WIP FDA registration Plugin
+
+This is not intrinsically necessary for GingerScience but will be useful for DeSci projects going forward, both for cosmeceuticals and for adapting for non-cosmetic FDA integration.
+
 # INCI to UNII
 
 This tool converts International Nomenclature of Cosmetic Ingredients (INCI) listings for cosmetic products to the Unique Ingredient Identifier (UNII) preferred name and UNII code. The output can be downloaded to a CSV file that can be uploaded to the ingredients section when registering a cosmetic product via FDA Cosmetics Direct. 
